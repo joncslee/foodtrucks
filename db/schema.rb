@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140226185114) do
+ActiveRecord::Schema.define(version: 20140228015941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,21 +35,11 @@ ActiveRecord::Schema.define(version: 20140226185114) do
     t.decimal  "longitude",   precision: 9, scale: 6
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "truck_id"
-  end
-
-  add_index "truck_posts", ["day_of_week", "start_time", "end_time"], name: "index_truck_posts_on_day_of_week_and_start_time_and_end_time", using: :btree
-  add_index "truck_posts", ["day_of_week"], name: "index_truck_posts_on_day_of_week", using: :btree
-  add_index "truck_posts", ["truck_id"], name: "index_truck_posts_on_truck_id", using: :btree
-
-  create_table "trucks", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "brand_id"
   end
 
-  add_index "trucks", ["brand_id"], name: "index_trucks_on_brand_id", using: :btree
+  add_index "truck_posts", ["brand_id"], name: "index_truck_posts_on_brand_id", using: :btree
+  add_index "truck_posts", ["day_of_week", "start_time", "end_time"], name: "index_truck_posts_on_day_of_week_and_start_time_and_end_time", using: :btree
+  add_index "truck_posts", ["day_of_week"], name: "index_truck_posts_on_day_of_week", using: :btree
 
 end

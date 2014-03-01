@@ -1,7 +1,4 @@
 class TrucksController < ApplicationController
-  def index
-  end
-
-  def show
+  def search
   end
 end

@@ -63,3 +63,4 @@ gem 'nokogiri'
 # gem 'debugger', group: [:development, :test]
 
 gem 'foundation-rails'
+gem 'autoprefixer-rails'

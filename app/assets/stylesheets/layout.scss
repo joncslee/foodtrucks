@@ -1,0 +1,21 @@
+
+.wrap {
+}
+
+.branding {
+    display: inline-block;
+}
+
+.main-nav {
+    display: inline-block;
+    margin-left: 4rem;
+
+    ul {
+        margin: 0;
+    }
+
+    li {
+        float: left;
+        margin-right: 3rem;
+    }
+}

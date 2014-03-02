@@ -2,13 +2,11 @@
     position: relative;
 
     .attribution {
-        color: white;
         position: absolute;
         bottom: 10px;
         left: 10px;
 
         a {
-            color: white;
             text-decoration: underline;
 
             &:hover {
@@ -23,6 +21,10 @@
     background: url(asset-path('food-truck-festival.jpg')) no-repeat;
     background-size: cover;
     background-position: 0% 30%;
+
+    & * {
+        color: white;
+    }
 }
 
 .search-wrap {
@@ -30,9 +32,4 @@
     height: 20rem;
     display: flex;
     align-items: center;
-    color: white;
-
-    h4, label {
-        color: white;
-    }
 }

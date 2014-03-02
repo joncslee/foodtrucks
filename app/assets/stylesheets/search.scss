@@ -2,9 +2,19 @@
     position: relative;
 
     .attribution {
+        color: white;
         position: absolute;
-        bottom: 5px;
-        left: 5px;
+        bottom: 10px;
+        left: 10px;
+
+        a {
+            color: white;
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
     }
 }
 

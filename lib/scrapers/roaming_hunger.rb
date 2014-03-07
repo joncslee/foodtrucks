@@ -28,15 +28,39 @@ class Scrapers::RoamingHunger
         doc.xpath('//trucklocation').each do |l|
           name = l.xpath('truck/name').text
           location = l.xpath('location').text
-          start_time = l.xpath('start').text
-          end_time = l.xpath('end').text
+          start_time = Time.parse(l.xpath('start').text).utc
+          end_time = Time.parse(l.xpath('end').text).utc
           lat = l.xpath('lat').text
           lng = l.xpath('lng').text
 
           # skip if no data available
-          break if name.blank?
+          next if name.blank?
 
-          # create or update trucks and truck_posts
+          # create or update brands and truck_posts
+          brand = Brand.find_by_name(name)
+          brand = Brand.create(name: name) if brand.blank?
+
+          # check for existing truck post in same time slot (?)
+          existing_post = brand.truck_posts.where("day_of_week = ? AND (start_time = ? OR end_time = ?) AND latitude = ? AND longitude = ?", 
+                                                  Date.today.cwday, start_time, end_time, lat, lng).first
+
+          if existing_post.present?
+            # if a truck post for same slot exists, simply update it
+            existing_post.start_time = start_time
+            existing_post.end_time = end_time
+            existing_post.latitude = lat
+            existing_post.longitude = lng
+            existing_post.save
+          else
+            # otherwise, create a new one
+            post = brand.truck_posts.create do |tp|
+              tp.day_of_week = Date.today.cwday
+              tp.start_time = start_time
+              tp.end_time = end_time
+              tp.latitude = lat
+              tp.longitude = lng
+            end
+          end
 
         end
       end

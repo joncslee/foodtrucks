@@ -4,6 +4,9 @@ class Scrapers::RoamingHunger
     # iterate list of scraped truck urls
     scrape_truck_list.each do |truck_url|
 
+      puts ''
+      puts "Parsing url: #{truck_url}"
+
       # build necessary dates
       today = Date.today.strftime('%Y-%m-%d')
       tomorrow = Date.tomorrow.strftime('%Y-%m-%d')
@@ -25,7 +28,10 @@ class Scrapers::RoamingHunger
 
         # parse XML response
         doc = Nokogiri::XML(open(url))
-        doc.xpath('//trucklocation').each do |l|
+        truck_locations = doc.xpath('//trucklocation')
+        puts "NO DATA" if truck_locations.blank?
+
+        truck_locations.each do |l|
           name = l.xpath('truck/name').text
           location = l.xpath('location').text
           start_time = Time.parse(l.xpath('start').text).utc
@@ -34,7 +40,9 @@ class Scrapers::RoamingHunger
           lng = l.xpath('lng').text
 
           # skip if no data available
-          next if name.blank?
+          puts "NO DATA" and next if name.blank?
+
+          puts "Parsing #{name}: #{start_time} - #{end_time}"
 
           # create or update brands and truck_posts
           brand = Brand.find_by_name(name)
@@ -46,6 +54,7 @@ class Scrapers::RoamingHunger
 
           if existing_post.present?
             # if a truck post for same slot exists, simply update it
+            puts "Updating existing truck post..."
             existing_post.start_time = start_time
             existing_post.end_time = end_time
             existing_post.latitude = lat
@@ -53,6 +62,7 @@ class Scrapers::RoamingHunger
             existing_post.save
           else
             # otherwise, create a new one
+            puts "Creating new truck post..."
             post = brand.truck_posts.create do |tp|
               tp.day_of_week = Date.today.cwday
               tp.start_time = start_time
@@ -73,6 +83,13 @@ class Scrapers::RoamingHunger
   # hit the schedule/location API
   def self.scrape_truck_list
     doc = Nokogiri::HTML(open("http://roaminghunger.com/bos"))
-    doc.css('ul.squarelist div.thumbnailbox a').map { |e| e['href'] }
+    trucks = doc.css('ul.squarelist div.thumbnailbox a').map { |e| e['href'] }
+
+    puts ''
+    puts "Trucks to be scraped:"
+    puts trucks
+    puts ''
+
+    trucks
   end
 end

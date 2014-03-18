@@ -9,22 +9,24 @@
         </div>
       </div>
       <div class="row">
-        <div class="large-9 columns">
-          <label>
-            Where are you?
-            <input type="text" placeholder="Address">
-          </label>
-        </div>
-        <div class="large-3 columns">
-          <label>
-            When are you eating?
-            <select>
-              <option value="breakfast">Breakfast</option>
-              <option value="lunch">Lunch</option>
-              <option value="dinner">Dinner</option>
-            </select>
-          </label>
-        </div>
+        <%= form_tag '/search', remote: true do %>
+          <div class="large-9 columns">
+            <label>
+              Where are you?
+              <%= text_field_tag 'address', nil, placeholder: 'Address' %>
+            </label>
+          </div>
+          <div class="large-3 columns">
+            <label>
+              When are you eating?
+              <select>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+              </select>
+            </label>
+          </div>
+        <% end %>
       </div>
       <div class="row">
         <div class="large-3 columns">
@@ -39,3 +41,6 @@
     <a href="http://creativecommons.org/licenses/by/2.0/">CC BY</a>
   </small>
 </div>
+
+<section id="search-results" style="display: none;">
+</section>

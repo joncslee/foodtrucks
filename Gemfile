@@ -64,3 +64,4 @@ gem 'nokogiri'
 
 gem 'foundation-rails'
 gem 'autoprefixer-rails'
+gem 'geocoder'

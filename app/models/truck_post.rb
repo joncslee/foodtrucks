@@ -5,6 +5,8 @@ class TruckPost < ActiveRecord::Base
 
   def self.within_time_frame(time_frame)
     case time_frame
+    when "now"
+      where("start_time < ? AND end_time > ?", Time.now, Time.now)
     when "breakfast"
       where("start_time BETWEEN '05:00:01' AND '10:59:59'")
     when "lunch"

@@ -25,10 +25,14 @@
     & * {
         color: white;
     }
+
+    select, option {
+        color: black;
+    }
 }
 
 .search-wrap {
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.55);
     height: 20rem;
     display: flex;
     align-items: center;

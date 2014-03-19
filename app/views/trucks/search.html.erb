@@ -8,31 +8,27 @@
           </header>
         </div>
       </div>
-      <div class="row">
-        <%= form_tag '/search', remote: true do %>
+      <%= form_tag '/search', remote: true do %>
+        <div class="row">
           <div class="large-9 columns">
             <label>
               Where are you?
-              <%= text_field_tag 'address', nil, placeholder: 'Address' %>
+              <%= text_field_tag 'address', @address, placeholder: 'Address' %>
             </label>
           </div>
           <div class="large-3 columns">
             <label>
               When are you eating?
-              <select>
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-              </select>
+              <%= select_tag(:time_frame, options_for_select([['Breakfast', 'breakfast'], ['Lunch', 'lunch'],['Dinner', 'dinner']])) %>
             </label>
           </div>
-        <% end %>
-      </div>
-      <div class="row">
-        <div class="large-3 columns">
-          <input class="button secondary" value="Search for trucks" type="submit">
         </div>
-      </div>
+        <div class="row">
+          <div class="large-3 columns">
+            <input class="button secondary" value="Search for trucks" type="submit">
+          </div>
+        </div>
+      <% end %>
     </div>
   </section>
   <small class="attribution">

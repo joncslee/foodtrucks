@@ -4,15 +4,13 @@
         <table>
           <tr>
             <th>Truck Name</th>
-            <th>Start Time</th>
-            <th>End Time</th>
+            <th>Hours</th>
             <th>Actions</th>
           </tr>
           <% @trucks.each do |t| %>
             <tr>
               <td><%= t.brand.name %></td>
-              <td><%= t.start_time %></td>
-              <td><%= t.end_time %></td>
+              <td><%= t.start_time.in_time_zone.strftime('%l:%M %p') %> - <%= t.end_time.in_time_zone.strftime('%l:%M %p') %></td>
               <td><%= link_to 'View', '#' %></td>
             </tr>
           <% end %>

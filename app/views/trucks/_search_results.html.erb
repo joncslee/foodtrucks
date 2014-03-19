@@ -8,10 +8,11 @@
             <th>Actions</th>
           </tr>
           <% @trucks.each do |t| %>
+            <% brand = t.brand %>
             <tr>
-              <td><%= t.brand.name %></td>
+              <td><%= brand.name %></td>
               <td><%= t.start_time.in_time_zone.strftime('%l:%M %p') %> - <%= t.end_time.in_time_zone.strftime('%l:%M %p') %></td>
-              <td><%= link_to 'View', '#' %></td>
+              <td><%= link_to 'View', brand %></td>
             </tr>
           <% end %>
         </table>

@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="large-12 columns">
+    <h2><%= @brand.name %></h2>
+  </div>
+</div>
+<div class="row">
+  <div class="large-6 columns">
+    <h3>Today's Posts</h3>
+    <% @truck_posts.each do |t| %>
+      <p><%= t.start_time.in_time_zone.strftime('%l:%M %p') %> - <%= t.end_time.in_time_zone.strftime('%l:%M %p') %></p>
+    <% end %>
+  </div>
+  <div class="large-6 columns">
+    map goes here
+  </div>
+</div>

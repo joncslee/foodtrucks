@@ -1,3 +1,5 @@
+$('section#search-results').hide();
+
 $('section#search-results').html('<%= escape_javascript(render :partial => 'search_results') %>');
 
-$('section#search-results').show('slide');
+$('section#search-results').slideDown('slow');
